@@ -14,42 +14,36 @@
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	int i;
-	int is1;
-	int is2;
-	int total_len;
-	char *total_str;
-	
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
+	size_t	i;
+	size_t	c;
+	char	*str;
+
 	if (!s1)
 	{
-		s1 = (char *)malloc(sizeof(char) + 1);
+		s1 = (char *)malloc(1 * sizeof(char));
 		s1[0] = '\0';
 	}
-	is1 = ft_strlen(s1);
-	is2 = ft_strlen(s2);
-	total_len = is1 + is2;
-	total_str = (char *)malloc(sizeof(char) * total_len + 1);
-	if (total_str == NULL)
+	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
-	while (i <= is1)
-	{
-		total_str[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (i <= is2 && i <= (int)ft_strlen(s2))
-		total_str[is1++] = s2[i++];
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	c = 0;
+	if (s1)
+		while (s1[++i] != '\0')
+			str[i] = s1[i];
+	while (s2[c] != '\0')
+		str[i++] = s2[c++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 	free(s1);
-	return (total_str);
+	return (str);
 }
 
 char	*ft_strchr(char *str, int c)
 {
-	int i;
-	char ch;
+	int		i;
+	char	ch;
 
 	i = 0;
 	ch = c;
@@ -67,7 +61,7 @@ char	*ft_strchr(char *str, int c)
 size_t	ft_strlen(char *str)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (str[i])
 		i++;

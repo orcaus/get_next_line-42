@@ -12,11 +12,11 @@
 
 #include "get_next_line.h"
 
-char *get_line(int fd, char *save)
+char	*get_line(int fd, char *save)
 {
-	int	str_count;
+	int		str_count;
 	char	*buffer;
-	
+
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 2);
 	if (!buffer)
 		return (NULL);
@@ -31,18 +31,18 @@ char *get_line(int fd, char *save)
 			return (NULL);
 		}
 		buffer[str_count] = '\0';
-		save = ft_strjoin(save, buffer); 
+		save = ft_strjoin(save, buffer);
 	}
 	free(buffer);
-	return(save);
+	return (save);
 }
 
-char *cut_line(char *save)
+char	*cut_line(char *save)
 {
-	char *line;
-	int goodlen;
-	int i;
-	
+	char	*line;
+	int		goodlen;
+	int		i;
+
 	goodlen = 0;
 	if (!save[goodlen])
 		return (NULL);
@@ -60,18 +60,18 @@ char *cut_line(char *save)
 	if (save[i] == '\n')
 	{
 		line[i] = save[i];
-		i++; 
+		i++;
 	}
 	line[i] = '\0';
 	return (line);
 }
 
-char *rest(char *save)
+char	*rest(char *save)
 {
-	int goodlen;
-	char *rest;
-	int i;
-	
+	int		goodlen;
+	char	*rest;
+	int		i;
+
 	goodlen = 0;
 	while (save[goodlen] && save[goodlen] != '\n')
 		goodlen++;
@@ -89,13 +89,13 @@ char *rest(char *save)
 		rest[i++] = save[goodlen++];
 	rest[i] = '\0';
 	free(save);
-	return(rest);
+	return (rest);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char *line;
-	static char *save;
+	char		*line;
+	static char	*save;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
@@ -104,5 +104,5 @@ char *get_next_line(int fd)
 		return (NULL);
 	line = cut_line(save);
 	save = rest(save);
-	return(line);
+	return (line);
 }
